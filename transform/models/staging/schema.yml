@@ -1,0 +1,62 @@
+version: 2
+models:
+  - name: stg_member
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+      - name: sector
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Agro-processing
+                - Food & Beverage
+                - Packaging
+                - Furniture & Wood
+                - Personal Care & Chemicals
+                - Construction Inputs
+                - Light Manufacturing
+  - name: stg_product
+    columns:
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_member')
+              field: member_id
+  - name: stg_capacity_submission
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+      - name: utilization_pct
+        tests: [not_null]
+  - name: stg_certification
+    columns:
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_member')
+              field: member_id
+  - name: stg_energy_submission
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+  - name: stg_readiness_assessment
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+  - name: stg_buyer_request
+    columns:
+      - name: request_id
+        tests: [unique, not_null]
+  - name: stg_visibility_setting
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+      - name: tier
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3]
+              quote: false

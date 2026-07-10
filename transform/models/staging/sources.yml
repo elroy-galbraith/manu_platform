@@ -1,0 +1,14 @@
+version: 2
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: member
+      - name: product
+      - name: capacity_submission
+      - name: certification
+      - name: energy_submission
+      - name: readiness_assessment
+      - name: buyer_request
+      - name: visibility_setting
+      - name: workforce_submission

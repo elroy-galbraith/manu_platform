@@ -1,0 +1,40 @@
+name: jmea_transform
+version: "0.1.0"
+profile: jmea
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+vars:
+  current_quarter: "2026-Q2"
+
+models:
+  jmea_transform:
+    staging:
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +schema: intermediate
+      +materialized: view
+    published:
+      private:
+        +schema: pub_private
+        +materialized: view
+        +grants:
+          select: ["svc_analytics"]
+      aggregate:
+        +schema: pub_aggregate
+        +materialized: view
+        +grants:
+          select: ["svc_analytics"]
+      matching:
+        +schema: pub_matching
+        +materialized: view
+        +grants:
+          select: ["svc_analytics", "svc_matching"]
+
+seeds:
+  jmea_transform:
+    +schema: fixtures
