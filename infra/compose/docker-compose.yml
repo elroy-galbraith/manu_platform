@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: jmea_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-jmea_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-jmea_dev_admin}
+      POSTGRES_DB: ${POSTGRES_DB:-jmea}
+      APP_PORTAL_PASSWORD: ${APP_PORTAL_PASSWORD:-portal_dev}
+      TRANSFORM_PASSWORD: ${TRANSFORM_PASSWORD:-transform_dev}
+      SVC_ANALYTICS_PASSWORD: ${SVC_ANALYTICS_PASSWORD:-analytics_dev}
+      SVC_MATCHING_PASSWORD: ${SVC_MATCHING_PASSWORD:-matching_dev}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-jmea_admin} -d $${POSTGRES_DB:-jmea}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

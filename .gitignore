@@ -1,1 +1,12 @@
 .python-version
+.superpowers/
+.env
+scripts/seed-data/
+transform/target/
+transform/logs/
+transform/dbt_packages/
+__pycache__/
+.pytest_cache/
+.terraform/
+*.tfstate
+*.tfstate.*
