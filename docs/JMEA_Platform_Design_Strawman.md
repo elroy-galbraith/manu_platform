@@ -68,7 +68,7 @@ The proposal's three-tier visibility model is enforced in the database, not in t
 
 # **6 · Hosting & running cost sketch**
 
-Phase 1 runs comfortably on one 4 vCPU / 8 GB VM (Docker Compose: Budibase, Lightdash, FastAPI, nginx) plus a small managed Postgres. Indicative: US$48–80/month for the VM, US$15–30/month for Postgres with automated backups, domain and TLS effectively free. Total under US$120/month, which sits inside the J$1.5M annual maintenance line with substantial room for support labour. Jamaica DPA posture: JMEA as data controller, Aeon as processor, data hosted in-region or US-East with a data-processing agreement; audit trail via Postgres logical replication of the raw schema.
+Phase 1 runs on a single Terraform-provisioned Google Cloud VM (Docker Compose: Budibase, Lightdash, FastAPI, nginx), starting at e2-small (~US$13/month) for the data core and scaling to e2-standard-2 (4 vCPU / 8 GB, ~US$49/month) when the full stack lands. Postgres 16 runs in the Compose stack with a nightly pg\_dump to a GCS bucket rather than as a managed instance (see ADR-0003); Cloud SQL is the fallback if operational load grows. Domain and TLS effectively free. Total under US$60/month at full Phase 1 scale, which sits inside the J$1.5M annual maintenance line with substantial room for support labour. Jamaica DPA posture: JMEA as data controller, Aeon as processor, data hosted in-region or US-East with a data-processing agreement; audit trail via Postgres logical replication of the raw schema.
 
 # **7 · PoC → production path**
 

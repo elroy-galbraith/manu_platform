@@ -31,3 +31,4 @@ What becomes easier, what becomes harder, what we're betting on.
 
 - [0001](0001-record-architecture-decisions.md) — Record architecture decisions
 - [0002](0002-use-lightdash-for-analytics.md) — Use Lightdash instead of Metabase for the analytics layer
+- [0003](0003-terraform-gcp-hosting.md) — Provision hosting with Terraform on Google Cloud; Postgres stays containerized
