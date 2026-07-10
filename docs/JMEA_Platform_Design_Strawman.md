@@ -19,10 +19,10 @@ Five layers, all deployable on a single VM with Docker Compose in Phase 1, separ
 | Collection | Member portal: forms, CSV upload, admin approval queue, quarterly reminders | Budibase (OSS app builder) \+ custom validation rules |
 | Storage | Governed central warehouse; raw → staged → published schemas | PostgreSQL 16 (managed instance) |
 | Transformation | Validation, readiness scoring, aggregation views, k-anonymity enforcement | dbt-core \+ lightweight Python ingestion jobs |
-| Analytics | Role-scoped dashboards, executive views, sector benchmarks | Metabase OSS |
+| Analytics | Role-scoped dashboards, executive views, sector benchmarks — defined as code alongside dbt | Lightdash OSS |
 | Custom services | Matching engine, export readiness API, later: policy simulator, AI assistant | FastAPI (Python), one small service |
 
-Operating flow mirrors the proposal's operating logic: members submit or upload data through the portal; JMEA admins validate high-value fields; dbt transforms publish only what each visibility tier permits; Metabase and the matching service read exclusively from the published schema. Nothing downstream can touch raw member submissions.
+Operating flow mirrors the proposal's operating logic: members submit or upload data through the portal; JMEA admins validate high-value fields; dbt transforms publish only what each visibility tier permits; Lightdash and the matching service read exclusively from the published schema. Nothing downstream can touch raw member submissions.
 
 # **3 · Build vs. assemble decisions**
 
@@ -33,9 +33,9 @@ Curated to realistic options only; recommended choice listed first in each row w
 | Member portal / CRM-style collection | Budibase — forms, RBAC, approval workflows out of the box | NocoDB is better as an Airtable-style admin grid but weaker for member-facing forms; fully custom portal costs 4–6 weeks the budget doesn't have |
 | Warehouse | PostgreSQL — boring, cheap, DPA-compliant hosting available regionally | A cloud warehouse (BigQuery et al.) is overkill at hundreds of rows and complicates data-residency conversations |
 | Ingestion / pipelines | Custom Python jobs \+ dbt — data volumes are tiny; a scheduler and 300 lines of Python suffice | Airbyte/Meltano add container sprawl and upgrade churn for connectors this project mostly doesn't need; adopt later only for trade-data APIs if worthwhile |
-| Dashboards | Metabase OSS — fastest to ship, easiest for JMEA staff to self-serve | Superset embeds interactive dashboards without a paid tier (Metabase's interactive embedding is paid) but costs more ops effort; revisit if member-facing embedded analytics becomes a hard requirement |
+| Dashboards | Lightdash OSS — dashboards-as-code (YAML in the repo), semantic layer unified with dbt, buildable and maintainable by AI agents under version control | Metabase OSS is the fallback if GUI-first self-serve for staff becomes a hard requirement, but its dashboards live in an internal app DB (dashboards-as-code is a paid feature) and are awkward for agents to build; see ADR-0002 |
 | Matching engine | Custom FastAPI service — this is core IP; scoring must be transparent and explainable to members | No credible OSS 'supplier matching' base exists; keep the scoring rubric in SQL/Python, not a black box |
-| Auth & roles | Application-level roles in Budibase \+ Metabase groups | Keycloak gives real SSO but is heavy ops for a 5-role system; defer until partner/buyer logins scale |
+| Auth & roles | Application-level roles in Budibase \+ Lightdash spaces/roles | Keycloak gives real SSO but is heavy ops for a 5-role system; defer until partner/buyer logins scale |
 | Trade data | Scheduled pulls: UN Comtrade, WITS, World Bank APIs into reference schema | Manual quarterly CSV loads are acceptable Phase 1 fallback — these sources update slowly |
 | AI assistant (Phase 3\) | Claude API with retrieval over the published schema \+ policy docs | Self-hosted LLM avoids per-query cost but is unrealistic at this budget and quality bar |
 
@@ -64,18 +64,18 @@ Two scoring rubrics are the platform's analytical heart and are implemented iden
 
 # **5 · Trust model implementation**
 
-The proposal's three-tier visibility model is enforced in the database, not in the UI. Every field group carries a member-controlled tier. dbt builds three published schemas: pub\_private (member \+ admin only), pub\_aggregate (sector-level views with a k-anonymity rule — no aggregate cell published unless it contains at least 5 firms), and pub\_matching (Tier-3 opt-ins only). Metabase and the matching service have database credentials scoped to the published schemas and physically cannot query raw submissions. This makes the confidentiality promise auditable — a stronger claim in front of members than a policy document.
+The proposal's three-tier visibility model is enforced in the database, not in the UI. Every field group carries a member-controlled tier. dbt builds three published schemas: pub\_private (member \+ admin only), pub\_aggregate (sector-level views with a k-anonymity rule — no aggregate cell published unless it contains at least 5 firms), and pub\_matching (Tier-3 opt-ins only). Lightdash and the matching service have database credentials scoped to the published schemas and physically cannot query raw submissions. This makes the confidentiality promise auditable — a stronger claim in front of members than a policy document.
 
 # **6 · Hosting & running cost sketch**
 
-Phase 1 runs comfortably on one 4 vCPU / 8 GB VM (Docker Compose: Budibase, Metabase, FastAPI, nginx) plus a small managed Postgres. Indicative: US$48–80/month for the VM, US$15–30/month for Postgres with automated backups, domain and TLS effectively free. Total under US$120/month, which sits inside the J$1.5M annual maintenance line with substantial room for support labour. Jamaica DPA posture: JMEA as data controller, Aeon as processor, data hosted in-region or US-East with a data-processing agreement; audit trail via Postgres logical replication of the raw schema.
+Phase 1 runs comfortably on one 4 vCPU / 8 GB VM (Docker Compose: Budibase, Lightdash, FastAPI, nginx) plus a small managed Postgres. Indicative: US$48–80/month for the VM, US$15–30/month for Postgres with automated backups, domain and TLS effectively free. Total under US$120/month, which sits inside the J$1.5M annual maintenance line with substantial room for support labour. Jamaica DPA posture: JMEA as data controller, Aeon as processor, data hosted in-region or US-East with a data-processing agreement; audit trail via Postgres logical replication of the raw schema.
 
 # **7 · PoC → production path**
 
 | Stage | What exists | What it proves |
 | :---- | :---- | :---- |
 | PoC (now) | Single-file HTML dashboard, 72 simulated members, 15 buyer requests, real trade & energy reference data | The four first-stage use cases are demonstrable and the scoring rubrics survive scrutiny |
-| Pilot (Phase 1\) | Budibase portal \+ Postgres \+ dbt \+ Metabase; 20–30 real members across priority sectors | Members will actually submit data; validation workflow works; first real dashboards |
+| Pilot (Phase 1\) | Budibase portal \+ Postgres \+ dbt \+ Lightdash; 20–30 real members across priority sectors | Members will actually submit data; validation workflow works; first real dashboards |
 | Phase 2 | Matching service live for tourism buyers; export readiness scorecards with action plans | Deals attributable to the platform — the renewal argument |
 | Phase 3 | Energy analytics at scale, policy simulator, AI assistant over published schema | JMEA as manufacturing intelligence authority |
 
