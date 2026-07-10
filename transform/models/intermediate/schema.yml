@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: int_readiness_scores
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+      - name: readiness_score
+        tests: [not_null]
+      - name: readiness_band
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["Export Ready", "Near Ready", "Developing", "Early Stage"]
+  - name: int_spare_capacity
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+      - name: spare_capacity
+        tests: [not_null]
