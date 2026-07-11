@@ -12,8 +12,12 @@ jmea:
       threads: 4
     lightdash:
       type: postgres
-      host: "{{ env_var('JMEA_DB_HOST', 'localhost') }}"
-      port: "{{ env_var('JMEA_DB_PORT', '5433') | as_number }}"
+      # Hardcoded (not JMEA_DB_HOST/PORT): this target seeds the Lightdash project's
+      # warehouse connection, and queries run server-side inside the `lightdash`
+      # container, which reaches Postgres via the Compose network as `postgres:5432` —
+      # not `localhost:5433`, which only resolves from the host running the CLI.
+      host: postgres
+      port: 5432
       user: svc_analytics
       password: "{{ env_var('SVC_ANALYTICS_PASSWORD', 'analytics_dev') }}"
       dbname: "{{ env_var('JMEA_DB_NAME', 'jmea') }}"
