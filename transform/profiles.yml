@@ -19,3 +19,4 @@ jmea:
       dbname: "{{ env_var('JMEA_DB_NAME', 'jmea') }}"
       schema: staging
       threads: 4
+      sslmode: disable

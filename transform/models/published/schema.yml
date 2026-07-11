@@ -43,6 +43,15 @@ models:
         tests: [unique, not_null]
       - name: readiness_score
         tests: [not_null]
+      - name: spare_capacity
+      - name: utilization_pct
+      - name: monthly_kwh
+      - name: energy_pct_of_prod_cost
+      - name: sector
+      - name: parish
+      - name: size_band
+      - name: readiness_band
+      - name: company
   - name: sector_summary
     columns:
       - name: member_count
@@ -74,6 +83,10 @@ models:
     columns:
       - name: member_id
         tests: [unique, not_null]
+      - name: spare_capacity
+      - name: lead_time_days
+      - name: sector
+      - name: certifications
   - name: buyer_request
     config:
       meta:
@@ -91,6 +104,9 @@ models:
     columns:
       - name: request_id
         tests: [unique, not_null]
+      - name: monthly_volume
+      - name: sector
+      - name: buyer_type
   - name: reference_stats
     config:
       meta:
@@ -109,3 +125,5 @@ models:
           - not_null
           - accepted_values:
               values: ["real", "simulated"]
+      - name: value
+      - name: label
