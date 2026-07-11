@@ -10,6 +10,7 @@ services:
       TRANSFORM_PASSWORD: ${TRANSFORM_PASSWORD:-transform_dev}
       SVC_ANALYTICS_PASSWORD: ${SVC_ANALYTICS_PASSWORD:-analytics_dev}
       SVC_MATCHING_PASSWORD: ${SVC_MATCHING_PASSWORD:-matching_dev}
+      LIGHTDASH_PG_PASSWORD: ${LIGHTDASH_PG_PASSWORD:-lightdash_dev}
     ports:
       # Loopback-only: not reachable from other hosts or VMs. Both loopback
       # stacks are bound so `localhost` works whether it resolves to 127.0.0.1

@@ -30,3 +30,11 @@ def test_raw_tables_exist():
             "select table_name from information_schema.tables where table_schema = 'raw'"
         ).fetchall()
     assert {r[0] for r in rows} == EXPECTED_RAW_TABLES
+
+
+def test_lightdash_app_db_exists():
+    with connect("jmea_admin") as conn:
+        dbs = {r[0] for r in conn.execute("select datname from pg_database").fetchall()}
+        roles = {r[0] for r in conn.execute("select rolname from pg_roles").fetchall()}
+    assert "lightdash" in dbs
+    assert "lightdash" in roles
