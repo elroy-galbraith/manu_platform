@@ -15,7 +15,7 @@ variable "zone" {
 }
 
 variable "machine_type" {
-  description = "e2-standard-2 (4 vCPU / 8 GB) - required once Lightdash joins the stack (ADR-0003 staged sizing; data-core-only stacks can override to e2-small)"
+  description = "e2-standard-2 (2 vCPU / 8 GB) - required once Lightdash joins the stack (ADR-0003 staged sizing; data-core-only stacks can override to e2-small)"
   type        = string
   default     = "e2-standard-2"
 }
