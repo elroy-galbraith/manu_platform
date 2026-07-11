@@ -1,10 +1,10 @@
 import json
 import os
-import re
 import urllib.request
 from pathlib import Path
 
 import pytest
+import yaml
 
 BASE = os.environ.get("LIGHTDASH_URL", "http://localhost:8080")
 PAT = os.environ.get("LIGHTDASH_PAT", "")
@@ -34,25 +34,14 @@ def _get(path):
 
 
 def _lightdash_target_user():
-    """Return the `user:` value of the `lightdash:` output target in transform/profiles.yml.
-
-    profiles.yml has a small, fixed two-target structure (`dev` and
-    `lightdash`), so a targeted line scan is enough here - no need to pull in
-    a YAML parser for one field. Find the `lightdash:` block, then return the
-    first `user:` value nested under it.
-    """
-    in_lightdash = False
-    for line in PROFILES_PATH.read_text().splitlines():
-        if re.match(r"^\s{4}lightdash:\s*$", line):
-            in_lightdash = True
-            continue
-        if in_lightdash:
-            if re.match(r"^\s{4}\S", line):  # dedent back to a sibling target
-                break
-            m = re.match(r"^\s+user:\s*(\S+)\s*$", line)
-            if m:
-                return m.group(1)
-    raise AssertionError("could not find `user:` under the `lightdash:` target in profiles.yml")
+    """Return the `user:` value of the `lightdash` output target in transform/profiles.yml."""
+    profiles = yaml.safe_load(PROFILES_PATH.read_text())
+    try:
+        return profiles["jmea"]["outputs"]["lightdash"]["user"]
+    except (KeyError, TypeError) as e:
+        raise AssertionError(
+            f"could not find `user:` under the `lightdash` target in profiles.yml: {e}"
+        )
 
 
 def test_lightdash_health():

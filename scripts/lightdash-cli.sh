@@ -30,13 +30,14 @@ docker run --rm \
     -e LIGHTDASH_PAT="$LIGHTDASH_PAT" \
     -e LIGHTDASH_PROJECT="${LIGHTDASH_PROJECT:-}" \
     node:20-slim \
-    sh -c "
+    sh -c '
         set -e
         apt-get update -qq >/dev/null && apt-get install -qq -y python3-pip python3-venv >/dev/null 2>&1
         python3 -m venv /tmp/dbtvenv
-        /tmp/dbtvenv/bin/pip install -q dbt-core==$DBT_CORE_VERSION dbt-postgres==$DBT_POSTGRES_VERSION
-        export PATH=/tmp/dbtvenv/bin:\$PATH
-        npm install -g @lightdash/cli@$LIGHTDASH_CLI_VERSION >/dev/null 2>&1
-        lightdash login $LIGHTDASH_URL --token \"\$LIGHTDASH_PAT\" \${LIGHTDASH_PROJECT:+--project \$LIGHTDASH_PROJECT}
-        lightdash $*
-    "
+        /tmp/dbtvenv/bin/pip install -q dbt-core=="$1" dbt-postgres=="$2"
+        export PATH=/tmp/dbtvenv/bin:$PATH
+        npm install -g @lightdash/cli@"$3" >/dev/null 2>&1
+        lightdash login "$4" --token "$LIGHTDASH_PAT" ${LIGHTDASH_PROJECT:+--project "$LIGHTDASH_PROJECT"}
+        shift 4
+        lightdash "$@"
+    ' -- "$DBT_CORE_VERSION" "$DBT_POSTGRES_VERSION" "$LIGHTDASH_CLI_VERSION" "$LIGHTDASH_URL" "$@"
