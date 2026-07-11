@@ -43,6 +43,13 @@ services:
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-lightdash_dev}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-lightdash_dev_minio_pw}
+    ports:
+      # Loopback-only, same dual-stack pattern as postgres/lightdash. Lightdash's
+      # own parseConfig.js documents S3_PUBLIC_ENDPOINT as needed in local dev
+      # because the browser can't resolve the internal Docker hostname `minio` —
+      # so the API port is published for that (not for direct end-user access).
+      - "127.0.0.1:${MINIO_PORT:-9000}:9000"
+      - "[::1]:${MINIO_PORT:-9000}:9000"
     volumes:
       - minio_data:/data
     healthcheck:
@@ -60,11 +67,12 @@ services:
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-lightdash_dev}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-lightdash_dev_minio_pw}
+      LIGHTDASH_S3_BUCKET: ${LIGHTDASH_S3_BUCKET:-lightdash}
     entrypoint: ["/bin/sh", "-c"]
     command:
       - >
         mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD" &&
-        mc mb --ignore-existing local/lightdash
+        mc mb --ignore-existing "local/$$LIGHTDASH_S3_BUCKET"
 
   lightdash:
     image: lightdash/lightdash:0.3363.1
@@ -95,6 +103,12 @@ services:
       S3_ACCESS_KEY: ${MINIO_ROOT_USER:-lightdash_dev}
       S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-lightdash_dev_minio_pw}
       S3_FORCE_PATH_STYLE: "true"
+      # Browser-facing S3 endpoint for presigned URLs (see minio's port comment
+      # above). Not read by any presigned-URL code path in lightdash 0.3363.1
+      # (verified: S3BaseClient/S3Client/AppGenerateService only read `endpoint`,
+      # not `publicEndpoint`) but it's Lightdash's own documented local-dev
+      # config, kept for forward-compatibility with future versions/features.
+      S3_PUBLIC_ENDPOINT: http://localhost:${MINIO_PORT:-9000}
     ports:
       - "127.0.0.1:${LIGHTDASH_PORT:-8080}:8080"
       - "[::1]:${LIGHTDASH_PORT:-8080}:8080"
