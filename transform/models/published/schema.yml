@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: member_profile
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+      - name: readiness_score
+        tests: [not_null]
+  - name: sector_summary
+    columns:
+      - name: member_count
+        tests: [not_null]
+  - name: sector_energy
+    columns:
+      - name: member_count
+        tests: [not_null]
+  - name: supplier_directory
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
