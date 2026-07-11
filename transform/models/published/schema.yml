@@ -18,3 +18,16 @@ models:
     columns:
       - name: member_id
         tests: [unique, not_null]
+  - name: buyer_request
+    columns:
+      - name: request_id
+        tests: [unique, not_null]
+  - name: reference_stats
+    columns:
+      - name: stat_key
+        tests: [unique, not_null]
+      - name: provenance
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["real", "simulated"]

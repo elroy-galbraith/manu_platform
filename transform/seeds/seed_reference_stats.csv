@@ -1,0 +1,13 @@
+stat_key,label,value,unit,year_or_asof,source,provenance
+jm_total_exports_2024,Jamaica total exports 2024,1867.2,USD millions,2024,STATIN via MFAFT,real
+jm_total_exports_2023,Jamaica total exports 2023,2001.8,USD millions,2023,STATIN via MFAFT,real
+mfg_gdp_share,Manufacturing share of GDP,8.5,percent,2022,Do Business Jamaica / PIOJ,real
+mfg_export_earnings,Manufacturing export earnings,961.3,USD millions,2022,Do Business Jamaica,real
+electricity_jm,Commercial electricity - Jamaica,0.238,USD per kWh,Sep 2025,GlobalPetrolPrices.com,real
+electricity_us,Commercial electricity - USA,0.128,USD per kWh,Sep 2025,GlobalPetrolPrices.com,real
+electricity_tt,Commercial electricity - Trinidad & Tobago,0.05,USD per kWh,Sep 2025,GlobalPetrolPrices.com,real
+electricity_dr,Commercial electricity - Dominican Republic,0.19,USD per kWh,Sep 2025,GlobalPetrolPrices.com,real
+electricity_bb,Commercial electricity - Barbados,0.30,USD per kWh,Sep 2025,GlobalPetrolPrices.com,real
+food_import_bill,National food import bill,1300,USD millions,2024,USDA FAS / Ministry of Agriculture,real
+hri_food_import_share,Food imports flowing to hotels and restaurants,60,percent,2024,USDA FAS,real
+substitutable_imports,Est. imports substitutable by local production,350,USD millions,2024,USDA FAS / Gleaner,real
