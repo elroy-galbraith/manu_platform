@@ -19,6 +19,7 @@ models:
       +schema: intermediate
       +materialized: view
     published:
+      +tags: ["lightdash"]
       private:
         +schema: pub_private
         +materialized: view

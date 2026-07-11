@@ -20,6 +20,8 @@ ALLOWED = [
     ("svc_analytics", "pub_aggregate.sector_energy"),
     ("svc_analytics", "pub_matching.supplier_directory"),
     ("svc_matching", "pub_matching.supplier_directory"),
+    ("svc_analytics", "pub_aggregate.reference_stats"),
+    ("svc_matching", "pub_matching.buyer_request"),
 ]
 
 

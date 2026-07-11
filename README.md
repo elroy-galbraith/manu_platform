@@ -24,6 +24,45 @@ the generator oracle, k-anonymity enforced, and the four-role trust model
 Postgres listens on `localhost:5433` (admin: `jmea_admin`/`jmea_dev_admin`, dev only).
 To reset everything: `docker compose -f infra/compose/docker-compose.yml down -v`.
 
+## Analytics (Lightdash)
+
+Lightdash serves dashboards at http://localhost:8080 (loopback-only), reading the
+published schemas as `svc_analytics` — it cannot see raw or staging data.
+
+Note: `tests/test_lightdash.py::test_warehouse_connection_is_svc_analytics` verifies
+the *configured* connection (dbt target + `transform/profiles.yml`), not the live
+connection identity — Lightdash's API redacts `warehouseConnection.user`, so no field
+directly confirms svc_analytics on the wire.
+
+Commands that need a live warehouse connection (`deploy`, `validate`, `set-warehouse`)
+must run through `./scripts/lightdash-cli.sh` instead of a locally-installed `lightdash`:
+`transform/profiles.yml`'s `lightdash` target hardcodes `host: postgres` — the
+Compose-internal address the Lightdash server itself uses — which only resolves from
+inside the Compose network, not from the bare host. The wrapper runs the pinned CLI in
+a throwaway container attached to that network so it can resolve `postgres` too.
+`upload`/`download` are pure content operations (no DB access) and run directly on the
+host with a locally-installed CLI (`npm install -g @lightdash/cli`, same version as
+`LIGHTDASH_CLI_VERSION` in the wrapper script).
+
+One-time bootstrap: register the admin account in the UI, create a personal access
+token (Settings → Personal access tokens), then:
+
+    export LIGHTDASH_PAT=<token>
+    ./scripts/lightdash-cli.sh deploy --create JMEA --target lightdash
+    # Project settings → Tables configuration → "Show models with any of these tags" → lightdash
+    export LIGHTDASH_PROJECT=<project-uuid-from-deploy-output>
+    lightdash login http://localhost:8080 --token "$LIGHTDASH_PAT" --project "$LIGHTDASH_PROJECT"
+    # ^ host-side login (separate from the wrapper's in-container login); needed for upload/download below
+
+Day-to-day (all content lives in the repo — the UI is a viewer):
+
+    ./scripts/lightdash-cli.sh deploy --target lightdash     # push semantic layer changes (dbt YAML)
+    ./scripts/lightdash-cli.sh validate --target lightdash   # gate: broken refs, drift
+    cd transform && lightdash upload --force && cd ..        # push charts/dashboards from transform/lightdash/
+
+Existing stacks (volume predates Lightdash): create the app DB once with
+`docker exec jmea_postgres bash /docker-entrypoint-initdb.d/04_lightdash_db.sh`.
+
 ## Deploy (GCP, per ADR-0003)
 
     cd infra/terraform

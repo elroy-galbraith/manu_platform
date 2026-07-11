@@ -8,3 +8,13 @@ seeds:
         score_capacity_headroom: integer
         readiness_score: integer
         readiness_band: text
+  - name: seed_reference_stats
+    config:
+      column_types:
+        stat_key: text
+        label: text
+        value: numeric
+        unit: text
+        year_or_asof: text
+        source: text
+        provenance: text

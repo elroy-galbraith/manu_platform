@@ -50,6 +50,13 @@ models:
     columns:
       - name: request_id
         tests: [unique, not_null]
+  - name: stg_workforce_submission
+    columns:
+      - name: member_id
+      - name: quarter
+      - name: employment
+      - name: vacancies
+      - name: skills_gaps
   - name: stg_visibility_setting
     columns:
       - name: member_id

@@ -1,0 +1,48 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    eChartsConfig:
+      series:
+        - encode:
+            xRef:
+              field: supplier_directory_sector
+            yRef:
+              field: supplier_directory_tier3_spare_capacity
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+      showAxisTicks: false
+    layout:
+      xField: supplier_directory_sector
+      yField:
+        - supplier_directory_tier3_spare_capacity
+  type: cartesian
+contentType: chart
+description: Sum of opted-in spare capacity per sector among tier-3 suppliers
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - supplier_directory_sector
+  exploreName: supplier_directory
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - supplier_directory_tier3_spare_capacity
+  sorts:
+    - descending: true
+      fieldId: supplier_directory_tier3_spare_capacity
+  tableCalculations: []
+  timezone: project_timezone
+name: Tier-3 capacity by sector
+slug: tier3-capacity-by-sector
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - supplier_directory_sector
+    - supplier_directory_tier3_spare_capacity
+tableName: supplier_directory
+verification: null
+version: 1

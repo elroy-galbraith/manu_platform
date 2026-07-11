@@ -1,0 +1,39 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    metricsAsRows: false
+    showColumnCalculation: false
+    showRowCalculation: false
+    showRowGrouping: true
+    showSubtotals: false
+    showTableNames: true
+  type: table
+contentType: chart
+description: Average supplier lead time in days per sector
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - supplier_directory_sector
+  exploreName: supplier_directory
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - supplier_directory_avg_lead_time_days
+  sorts:
+    - descending: true
+      fieldId: supplier_directory_avg_lead_time_days
+  tableCalculations: []
+  timezone: project_timezone
+name: Lead time fit
+slug: lead-time-fit
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - supplier_directory_sector
+    - supplier_directory_avg_lead_time_days
+tableName: supplier_directory
+verification: null
+version: 1

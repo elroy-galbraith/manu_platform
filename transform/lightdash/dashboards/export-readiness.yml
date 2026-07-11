@@ -1,0 +1,51 @@
+contentType: dashboard
+description: >-
+  Export readiness composite scores and the near-ready member pipeline
+  (simulated member data)
+filters:
+  dimensions: []
+  metrics: []
+  tableCalculations: []
+name: Export Readiness
+slug: export-readiness
+spaceSlug: jmea-demo
+tabs: []
+tiles:
+  - h: 9
+    properties:
+      chartName: Readiness band distribution
+      chartSlug: readiness-band-distribution
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: readiness-band-distribution
+    type: saved_chart
+    w: 18
+    x: 0
+    "y": 0
+  - h: 9
+    properties:
+      chartName: Readiness by sector
+      chartSlug: readiness-by-sector
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: readiness-by-sector
+    type: saved_chart
+    w: 18
+    x: 18
+    "y": 0
+  - h: 12
+    properties:
+      chartName: Near-ready pipeline
+      chartSlug: near-ready-pipeline
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: near-ready-pipeline
+    type: saved_chart
+    w: 36
+    x: 0
+    "y": 9
+verification: null
+version: 1

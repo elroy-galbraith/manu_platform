@@ -1,0 +1,48 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    eChartsConfig:
+      series:
+        - encode:
+            xRef:
+              field: member_profile_size_band
+            yRef:
+              field: member_profile_total_members
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+      showAxisTicks: false
+    layout:
+      xField: member_profile_size_band
+      yField:
+        - member_profile_total_members
+  type: cartesian
+contentType: chart
+description: Member count per firm size band
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - member_profile_size_band
+  exploreName: member_profile
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - member_profile_total_members
+  sorts:
+    - descending: true
+      fieldId: member_profile_total_members
+  tableCalculations: []
+  timezone: project_timezone
+name: Members by size band
+slug: members-by-size-band
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - member_profile_size_band
+    - member_profile_total_members
+tableName: member_profile
+verification: null
+version: 1

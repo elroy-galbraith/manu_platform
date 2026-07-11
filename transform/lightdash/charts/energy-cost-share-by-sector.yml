@@ -1,0 +1,59 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    eChartsConfig:
+      series:
+        - encode:
+            xRef:
+              field: member_profile_sector
+            yRef:
+              field: member_profile_avg_energy_cost_share
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+        - encode:
+            xRef:
+              field: member_profile_sector
+            yRef:
+              field: member_profile_avg_utilization_pct
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+      showAxisTicks: false
+    layout:
+      xField: member_profile_sector
+      yField:
+        - member_profile_avg_energy_cost_share
+        - member_profile_avg_utilization_pct
+  type: cartesian
+contentType: chart
+description: Mean energy share of production cost and mean capacity utilization per sector
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - member_profile_sector
+  exploreName: member_profile
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - member_profile_avg_energy_cost_share
+    - member_profile_avg_utilization_pct
+  sorts:
+    - descending: true
+      fieldId: member_profile_avg_energy_cost_share
+  tableCalculations: []
+  timezone: project_timezone
+name: Energy cost share by sector
+slug: energy-cost-share-by-sector
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - member_profile_sector
+    - member_profile_avg_energy_cost_share
+    - member_profile_avg_utilization_pct
+tableName: member_profile
+verification: null
+version: 1

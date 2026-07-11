@@ -1,0 +1,51 @@
+contentType: dashboard
+description: >-
+  Jamaica's electricity cost disadvantage versus regional comparators and its
+  impact on member production costs
+filters:
+  dimensions: []
+  metrics: []
+  tableCalculations: []
+name: Energy Burden
+slug: energy-burden
+spaceSlug: jmea-demo
+tabs: []
+tiles:
+  - h: 9
+    properties:
+      chartName: Electricity price comparison
+      chartSlug: electricity-price-comparison
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: electricity-price-comparison
+    type: saved_chart
+    w: 36
+    x: 0
+    "y": 0
+  - h: 9
+    properties:
+      chartName: Energy cost share by sector
+      chartSlug: energy-cost-share-by-sector
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: energy-cost-share-by-sector
+    type: saved_chart
+    w: 18
+    x: 0
+    "y": 9
+  - h: 9
+    properties:
+      chartName: kWh by sector
+      chartSlug: kwh-by-sector
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: kwh-by-sector
+    type: saved_chart
+    w: 18
+    x: 18
+    "y": 9
+verification: null
+version: 1

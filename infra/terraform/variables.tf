@@ -15,9 +15,9 @@ variable "zone" {
 }
 
 variable "machine_type" {
-  description = "e2-small for the data core; move to e2-standard-2 when the full stack lands (ADR-0003)"
+  description = "e2-standard-2 (2 vCPU / 8 GB) - required once Lightdash joins the stack (ADR-0003 staged sizing; data-core-only stacks can override to e2-small)"
   type        = string
-  default     = "e2-small"
+  default     = "e2-standard-2"
 }
 
 variable "admin_cidr" {

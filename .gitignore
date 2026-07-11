@@ -6,6 +6,7 @@ transform/target/
 transform/logs/
 transform/dbt_packages/
 transform/.user.yml
+transform/lightdash/.lightdash-metadata.json
 __pycache__/
 .pytest_cache/
 .terraform/

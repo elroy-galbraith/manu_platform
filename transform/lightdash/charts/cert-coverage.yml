@@ -1,0 +1,39 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    metricsAsRows: false
+    showColumnCalculation: false
+    showRowCalculation: false
+    showRowGrouping: true
+    showSubtotals: false
+    showTableNames: true
+  type: table
+contentType: chart
+description: Coverage of certifications among opted-in (tier-3) suppliers
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - supplier_directory_certifications
+  exploreName: supplier_directory
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - supplier_directory_tier3_suppliers
+  sorts:
+    - descending: true
+      fieldId: supplier_directory_tier3_suppliers
+  tableCalculations: []
+  timezone: project_timezone
+name: Certification coverage
+slug: cert-coverage
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - supplier_directory_certifications
+    - supplier_directory_tier3_suppliers
+tableName: supplier_directory
+verification: null
+version: 1
