@@ -1,6 +1,43 @@
 version: 2
 models:
   - name: member_profile
+    config:
+      meta:
+        label: "Members"
+        metrics:
+          total_members:
+            type: count_distinct
+            sql: ${member_id}
+            label: "Members"
+            description: "Count of distinct member firms"
+          total_spare_capacity:
+            type: sum
+            sql: ${spare_capacity}
+            label: "Total spare capacity"
+            description: "Sum of spare capacity; only comparable within one capacity unit — filter or group by Capacity unit"
+          avg_utilization_pct:
+            type: average
+            sql: ${utilization_pct}
+            round: 1
+            label: "Avg utilization %"
+            description: "Mean reported capacity utilization for the current quarter"
+          avg_readiness_score:
+            type: average
+            sql: ${readiness_score}
+            round: 1
+            label: "Avg readiness score"
+            description: "Mean export readiness composite (0-100); rubric weights: certs 25%, export history 20%, packaging/logistics/quality 15% each, capacity headroom 10%"
+          total_monthly_kwh:
+            type: sum
+            sql: ${monthly_kwh}
+            label: "Total monthly kWh"
+            description: "Sum of reported monthly electricity consumption"
+          avg_energy_cost_share:
+            type: average
+            sql: ${energy_pct_of_prod_cost}
+            round: 1
+            label: "Avg energy % of production cost"
+            description: "Mean share of production cost spent on energy"
     columns:
       - name: member_id
         tests: [unique, not_null]
@@ -15,14 +52,55 @@ models:
       - name: member_count
         tests: [not_null]
   - name: supplier_directory
+    config:
+      meta:
+        label: "Matching directory (tier-3 opt-ins)"
+        metrics:
+          tier3_suppliers:
+            type: count_distinct
+            sql: ${member_id}
+            label: "Opted-in suppliers"
+            description: "Members visible to buyers (visibility tier 3)"
+          tier3_spare_capacity:
+            type: sum
+            sql: ${spare_capacity}
+            label: "Opted-in spare capacity"
+            description: "Spare capacity across tier-3 members; unit-scoped like total spare capacity"
+          avg_lead_time_days:
+            type: average
+            sql: ${lead_time_days}
+            round: 1
+            label: "Avg lead time (days)"
     columns:
       - name: member_id
         tests: [unique, not_null]
   - name: buyer_request
+    config:
+      meta:
+        label: "Buyer requests"
+        metrics:
+          buyer_requests:
+            type: count_distinct
+            sql: ${request_id}
+            label: "Buyer requests"
+          total_monthly_volume:
+            type: sum
+            sql: ${monthly_volume}
+            label: "Total monthly volume requested"
+            description: "Sum across volume units — filter by Volume unit for comparable numbers"
     columns:
       - name: request_id
         tests: [unique, not_null]
   - name: reference_stats
+    config:
+      meta:
+        label: "Reference stats (real-world anchors)"
+        metrics:
+          stat_value:
+            type: max
+            sql: ${value}
+            label: "Value"
+            description: "The stat's value; filter to a single stat_key per tile"
     columns:
       - name: stat_key
         tests: [unique, not_null]

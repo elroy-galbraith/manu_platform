@@ -10,3 +10,12 @@ jmea:
       dbname: "{{ env_var('JMEA_DB_NAME', 'jmea') }}"
       schema: staging
       threads: 4
+    lightdash:
+      type: postgres
+      host: "{{ env_var('JMEA_DB_HOST', 'localhost') }}"
+      port: "{{ env_var('JMEA_DB_PORT', '5433') | as_number }}"
+      user: svc_analytics
+      password: "{{ env_var('SVC_ANALYTICS_PASSWORD', 'analytics_dev') }}"
+      dbname: "{{ env_var('JMEA_DB_NAME', 'jmea') }}"
+      schema: staging
+      threads: 4
