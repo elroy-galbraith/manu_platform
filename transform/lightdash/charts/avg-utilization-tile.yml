@@ -1,0 +1,32 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    label: Avg utilization %
+    selectedField: member_profile_avg_utilization_pct
+    showBigNumberLabel: true
+  type: big_number
+contentType: chart
+description: Mean reported capacity utilization for the current quarter, across all members
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions: []
+  exploreName: member_profile
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - member_profile_avg_utilization_pct
+  sorts: []
+  tableCalculations: []
+  timezone: project_timezone
+name: Avg utilization %
+slug: avg-utilization-tile
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - member_profile_avg_utilization_pct
+tableName: member_profile
+verification: null
+version: 1

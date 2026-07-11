@@ -1,0 +1,85 @@
+contentType: dashboard
+description: Member capacity mapping for the current quarter (simulated member data)
+filters:
+  dimensions: []
+  metrics: []
+  tableCalculations: []
+name: Capacity Overview
+slug: capacity-overview
+spaceSlug: jmea-demo
+tabs: []
+tiles:
+  - h: 6
+    properties:
+      chartName: Members
+      chartSlug: member-count-tile
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: member-count-tile
+    type: saved_chart
+    w: 12
+    x: 0
+    "y": 0
+  - h: 6
+    properties:
+      chartName: Avg utilization %
+      chartSlug: avg-utilization-tile
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: avg-utilization-tile
+    type: saved_chart
+    w: 12
+    x: 12
+    "y": 0
+  - h: 9
+    properties:
+      chartName: Spare capacity by sector
+      chartSlug: spare-capacity-by-sector
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: spare-capacity-by-sector
+    type: saved_chart
+    w: 18
+    x: 0
+    "y": 6
+  - h: 9
+    properties:
+      chartName: Utilization by sector
+      chartSlug: utilization-by-sector
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: utilization-by-sector
+    type: saved_chart
+    w: 18
+    x: 18
+    "y": 6
+  - h: 9
+    properties:
+      chartName: Members by parish
+      chartSlug: members-by-parish
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: members-by-parish
+    type: saved_chart
+    w: 18
+    x: 0
+    "y": 15
+  - h: 9
+    properties:
+      chartName: Members by size band
+      chartSlug: members-by-size-band
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: members-by-size-band
+    type: saved_chart
+    w: 18
+    x: 18
+    "y": 15
+verification: null
+version: 1

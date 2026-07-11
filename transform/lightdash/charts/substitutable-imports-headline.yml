@@ -1,0 +1,43 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    label: Substitutable imports (US$M)
+    selectedField: reference_stats_stat_value
+    showBigNumberLabel: true
+  type: big_number
+contentType: chart
+description: >-
+  Estimated hotel/restaurant food imports substitutable by local production
+  (source: USDA FAS / Gleaner - real data)
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions: []
+  exploreName: reference_stats
+  filters:
+    dimensions:
+      and:
+        - id: filter-substitutable-f1
+          operator: equals
+          target:
+            fieldId: reference_stats_stat_key
+          values:
+            - substitutable_imports
+      id: filter-substitutable
+  limit: 1
+  metricOverrides: {}
+  metrics:
+    - reference_stats_stat_value
+  sorts: []
+  tableCalculations: []
+  timezone: project_timezone
+name: Substitutable imports (US$M)
+slug: substitutable-imports-headline
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - reference_stats_stat_value
+tableName: reference_stats
+verification: null
+version: 1

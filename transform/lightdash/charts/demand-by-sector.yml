@@ -1,0 +1,59 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    eChartsConfig:
+      series:
+        - encode:
+            xRef:
+              field: buyer_request_sector
+            yRef:
+              field: buyer_request_total_monthly_volume
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+        - encode:
+            xRef:
+              field: buyer_request_sector
+            yRef:
+              field: buyer_request_buyer_requests
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+      showAxisTicks: false
+    layout:
+      xField: buyer_request_sector
+      yField:
+        - buyer_request_total_monthly_volume
+        - buyer_request_buyer_requests
+  type: cartesian
+contentType: chart
+description: Buyer request volume and count per sector
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - buyer_request_sector
+  exploreName: buyer_request
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - buyer_request_total_monthly_volume
+    - buyer_request_buyer_requests
+  sorts:
+    - descending: true
+      fieldId: buyer_request_total_monthly_volume
+  tableCalculations: []
+  timezone: project_timezone
+name: Demand by sector
+slug: demand-by-sector
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - buyer_request_sector
+    - buyer_request_total_monthly_volume
+    - buyer_request_buyer_requests
+tableName: buyer_request
+verification: null
+version: 1

@@ -1,0 +1,63 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    eChartsConfig:
+      series:
+        - encode:
+            xRef:
+              field: reference_stats_label
+            yRef:
+              field: reference_stats_stat_value
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+      showAxisTicks: false
+    layout:
+      xField: reference_stats_label
+      yField:
+        - reference_stats_stat_value
+  type: cartesian
+contentType: chart
+description: >-
+  Commercial electricity price (USD/kWh) across Jamaica and regional comparators
+  (source: GlobalPetrolPrices.com, Sep 2025 - real data)
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - reference_stats_label
+  exploreName: reference_stats
+  filters:
+    dimensions:
+      and:
+        - id: filter-electricity-f1
+          operator: equals
+          target:
+            fieldId: reference_stats_stat_key
+          values:
+            - electricity_jm
+            - electricity_us
+            - electricity_tt
+            - electricity_dr
+            - electricity_bb
+      id: filter-electricity
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - reference_stats_stat_value
+  sorts:
+    - descending: true
+      fieldId: reference_stats_stat_value
+  tableCalculations: []
+  timezone: project_timezone
+name: Electricity price comparison
+slug: electricity-price-comparison
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - reference_stats_label
+    - reference_stats_stat_value
+tableName: reference_stats
+verification: null
+version: 1

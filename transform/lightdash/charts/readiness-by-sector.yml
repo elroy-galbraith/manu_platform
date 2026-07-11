@@ -1,0 +1,48 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    eChartsConfig:
+      series:
+        - encode:
+            xRef:
+              field: member_profile_sector
+            yRef:
+              field: member_profile_avg_readiness_score
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+      showAxisTicks: false
+    layout:
+      xField: member_profile_sector
+      yField:
+        - member_profile_avg_readiness_score
+  type: cartesian
+contentType: chart
+description: Mean export readiness composite score per sector
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - member_profile_sector
+  exploreName: member_profile
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - member_profile_avg_readiness_score
+  sorts:
+    - descending: true
+      fieldId: member_profile_avg_readiness_score
+  tableCalculations: []
+  timezone: project_timezone
+name: Readiness by sector
+slug: readiness-by-sector
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - member_profile_sector
+    - member_profile_avg_readiness_score
+tableName: member_profile
+verification: null
+version: 1

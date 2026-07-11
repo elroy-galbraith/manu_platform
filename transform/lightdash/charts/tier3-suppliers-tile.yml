@@ -1,0 +1,32 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    label: Opted-in suppliers
+    selectedField: supplier_directory_tier3_suppliers
+    showBigNumberLabel: true
+  type: big_number
+contentType: chart
+description: Count of members visible to buyers (visibility tier 3)
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions: []
+  exploreName: supplier_directory
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - supplier_directory_tier3_suppliers
+  sorts: []
+  tableCalculations: []
+  timezone: project_timezone
+name: Opted-in suppliers
+slug: tier3-suppliers-tile
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - supplier_directory_tier3_suppliers
+tableName: supplier_directory
+verification: null
+version: 1

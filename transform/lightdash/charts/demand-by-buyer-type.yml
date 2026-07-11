@@ -1,0 +1,48 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    eChartsConfig:
+      series:
+        - encode:
+            xRef:
+              field: buyer_request_buyer_type
+            yRef:
+              field: buyer_request_buyer_requests
+          isFilteredOut: false
+          type: bar
+          yAxisIndex: 0
+      showAxisTicks: false
+    layout:
+      xField: buyer_request_buyer_type
+      yField:
+        - buyer_request_buyer_requests
+  type: cartesian
+contentType: chart
+description: Count of buyer requests per buyer type
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - buyer_request_buyer_type
+  exploreName: buyer_request
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - buyer_request_buyer_requests
+  sorts:
+    - descending: true
+      fieldId: buyer_request_buyer_requests
+  tableCalculations: []
+  timezone: project_timezone
+name: Demand by buyer type
+slug: demand-by-buyer-type
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - buyer_request_buyer_type
+    - buyer_request_buyer_requests
+tableName: buyer_request
+verification: null
+version: 1

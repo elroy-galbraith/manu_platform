@@ -1,0 +1,52 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    metricsAsRows: false
+    showColumnCalculation: false
+    showRowCalculation: false
+    showRowGrouping: true
+    showSubtotals: false
+    showTableNames: true
+  type: table
+contentType: chart
+description: Members in the 'Near Ready' export-readiness band, by company and sector
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - member_profile_company
+    - member_profile_sector
+    - member_profile_readiness_band
+  exploreName: member_profile
+  filters:
+    dimensions:
+      and:
+        - id: filter-near-ready-f1
+          operator: equals
+          target:
+            fieldId: member_profile_readiness_band
+          values:
+            - Near Ready
+      id: filter-near-ready
+  limit: 40
+  metricOverrides: {}
+  metrics:
+    - member_profile_avg_readiness_score
+  sorts:
+    - descending: true
+      fieldId: member_profile_avg_readiness_score
+  tableCalculations: []
+  timezone: project_timezone
+name: Near-ready pipeline
+slug: near-ready-pipeline
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - member_profile_company
+    - member_profile_sector
+    - member_profile_readiness_band
+    - member_profile_avg_readiness_score
+tableName: member_profile
+verification: null
+version: 1

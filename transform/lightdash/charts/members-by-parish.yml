@@ -1,0 +1,39 @@
+chartConfig:
+  config:
+    conditionalFormattings: []
+    metricsAsRows: false
+    showColumnCalculation: false
+    showRowCalculation: false
+    showRowGrouping: true
+    showSubtotals: false
+    showTableNames: true
+  type: table
+contentType: chart
+description: Member count per parish (stand-in for a geographic map view)
+metricQuery:
+  additionalMetrics: []
+  customDimensions: []
+  dimensionOverrides: {}
+  dimensions:
+    - member_profile_parish
+  exploreName: member_profile
+  filters: {}
+  limit: 500
+  metricOverrides: {}
+  metrics:
+    - member_profile_total_members
+  sorts:
+    - descending: true
+      fieldId: member_profile_total_members
+  tableCalculations: []
+  timezone: project_timezone
+name: Members by parish
+slug: members-by-parish
+spaceSlug: jmea-demo
+tableConfig:
+  columnOrder:
+    - member_profile_parish
+    - member_profile_total_members
+tableName: member_profile
+verification: null
+version: 1

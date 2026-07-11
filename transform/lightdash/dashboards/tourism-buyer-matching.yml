@@ -1,0 +1,99 @@
+contentType: dashboard
+description: >-
+  Tourism/hospitality import substitution opportunity matched against tier-3
+  opted-in supplier capacity
+filters:
+  dimensions: []
+  metrics: []
+  tableCalculations: []
+name: Tourism & Buyer Matching
+slug: tourism-buyer-matching
+spaceSlug: jmea-demo
+tabs: []
+tiles:
+  - h: 6
+    properties:
+      chartName: Substitutable imports (US$M)
+      chartSlug: substitutable-imports-headline
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: substitutable-imports-headline
+    type: saved_chart
+    w: 18
+    x: 0
+    "y": 0
+  - h: 6
+    properties:
+      chartName: Opted-in suppliers
+      chartSlug: tier3-suppliers-tile
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: tier3-suppliers-tile
+    type: saved_chart
+    w: 18
+    x: 18
+    "y": 0
+  - h: 9
+    properties:
+      chartName: Demand by sector
+      chartSlug: demand-by-sector
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: demand-by-sector
+    type: saved_chart
+    w: 18
+    x: 0
+    "y": 6
+  - h: 9
+    properties:
+      chartName: Tier-3 capacity by sector
+      chartSlug: tier3-capacity-by-sector
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: tier3-capacity-by-sector
+    type: saved_chart
+    w: 18
+    x: 18
+    "y": 6
+  - h: 9
+    properties:
+      chartName: Demand by buyer type
+      chartSlug: demand-by-buyer-type
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: demand-by-buyer-type
+    type: saved_chart
+    w: 12
+    x: 0
+    "y": 15
+  - h: 9
+    properties:
+      chartName: Certification coverage
+      chartSlug: cert-coverage
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: cert-coverage
+    type: saved_chart
+    w: 12
+    x: 12
+    "y": 15
+  - h: 9
+    properties:
+      chartName: Lead time fit
+      chartSlug: lead-time-fit
+      hideTitle: false
+      title: ""
+    tabUuid: null
+    tileSlug: lead-time-fit
+    type: saved_chart
+    w: 12
+    x: 24
+    "y": 15
+verification: null
+version: 1
