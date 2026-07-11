@@ -77,9 +77,11 @@ def test_warehouse_connection_is_svc_analytics():
     # Instead, prove it with two checks: (1) a live check that the deployed
     # project's semantic layer was built from the `lightdash` dbt target, and
     # (2) a static config check that the `lightdash` target's `user` is
-    # `svc_analytics`. Together they establish the deployed warehouse
-    # connection is svc_analytics without depending on a field the API
-    # doesn't return.
+    # `svc_analytics`. These two checks establish the *configured* target is
+    # svc_analytics (dbt target name + profiles.yml) - the Lightdash API
+    # redacts warehouseConnection.user, so the true live-connection identity
+    # can't be directly asserted here without a live SQL query (out of scope
+    # / would be racy).
     body = _get(f"/api/v1/projects/{PROJECT}")
     assert body["results"]["dbtConnection"]["target"] == "lightdash"
     assert _lightdash_target_user() == "svc_analytics"

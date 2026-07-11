@@ -29,6 +29,11 @@ To reset everything: `docker compose -f infra/compose/docker-compose.yml down -v
 Lightdash serves dashboards at http://localhost:8080 (loopback-only), reading the
 published schemas as `svc_analytics` — it cannot see raw or staging data.
 
+Note: `tests/test_lightdash.py::test_warehouse_connection_is_svc_analytics` verifies
+the *configured* connection (dbt target + `transform/profiles.yml`), not the live
+connection identity — Lightdash's API redacts `warehouseConnection.user`, so no field
+directly confirms svc_analytics on the wire.
+
 One-time bootstrap: register the admin account in the UI, create a personal access
 token (Settings → Personal access tokens), then:
 
