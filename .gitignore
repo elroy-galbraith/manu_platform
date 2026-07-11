@@ -5,6 +5,7 @@ scripts/seed-data/
 transform/target/
 transform/logs/
 transform/dbt_packages/
+transform/.user.yml
 __pycache__/
 .pytest_cache/
 .terraform/

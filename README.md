@@ -31,8 +31,22 @@ To reset everything: `docker compose -f infra/compose/docker-compose.yml down -v
     terraform apply -var project_id=YOUR_PROJECT -var admin_cidr=YOUR_IP/32
 
 Then SSH in, clone this repo to `/opt/jmea`, create `/opt/jmea/.env` from
-`.env.example` with real passwords, and run the same quickstart commands.
-Nightly `pg_dump` ships to the Terraform-created GCS bucket (30-day retention).
+`.env.example` with real passwords, then export it before running anything —
+`docker compose -f` does NOT read a repo-root `.env`, so skipping this leaves
+every tool (compose, loader, dbt, pytest) silently on dev-default credentials:
+
+    set -a; . ./.env; set +a    # export the real credentials — compose -f does NOT read repo-root .env
+
+then run the same quickstart commands.
+Nightly `pg_dump` ships to the Terraform-created GCS bucket (30-day retention);
+restore steps are in [infra/backup/RESTORE.md](infra/backup/RESTORE.md).
+
+Postgres is bound to loopback only (`127.0.0.1`), so it isn't reachable from
+other VMs regardless. The Terraform module here only manages the SSH firewall
+rule — the VM otherwise joins GCP's `default` VPC, which carries a pre-existing
+`default-allow-internal` rule permitting all project-internal traffic. Review
+and tighten or remove that rule if project-internal exposure is unacceptable
+for your environment.
 
 ## Layout
 

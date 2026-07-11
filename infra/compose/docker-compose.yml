@@ -11,7 +11,11 @@ services:
       SVC_ANALYTICS_PASSWORD: ${SVC_ANALYTICS_PASSWORD:-analytics_dev}
       SVC_MATCHING_PASSWORD: ${SVC_MATCHING_PASSWORD:-matching_dev}
     ports:
-      - "${POSTGRES_PORT:-5433}:5432"
+      # Loopback-only: not reachable from other hosts or VMs. Both loopback
+      # stacks are bound so `localhost` works whether it resolves to 127.0.0.1
+      # or ::1 (Windows/macOS resolvers often try ::1 first).
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+      - "[::1]:${POSTGRES_PORT:-5433}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ../postgres/init:/docker-entrypoint-initdb.d:ro
