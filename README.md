@@ -24,6 +24,35 @@ the generator oracle, k-anonymity enforced, and the four-role trust model
 Postgres listens on `localhost:5433` (admin: `jmea_admin`/`jmea_dev_admin`, dev only).
 To reset everything: `docker compose -f infra/compose/docker-compose.yml down -v`.
 
+## Analytics (Lightdash)
+
+Lightdash serves dashboards at http://localhost:8080 (loopback-only), reading the
+published schemas as `svc_analytics` — it cannot see raw or staging data.
+
+One-time bootstrap: register the admin account in the UI, create a personal access
+token (Settings → Personal access tokens), then:
+
+    export LIGHTDASH_PAT=<token>
+    lightdash login http://localhost:8080 --token "$LIGHTDASH_PAT"
+    cd transform && lightdash deploy --create JMEA --target lightdash --exclude stg_workforce_submission && cd ..
+    # Project settings → Tables configuration → "Show models with any of these tags" → lightdash
+    export LIGHTDASH_PROJECT=<project-uuid-from-deploy-output>
+
+Day-to-day (all content lives in the repo — the UI is a viewer):
+
+    cd transform
+    lightdash deploy --exclude stg_workforce_submission      # push semantic layer changes (dbt YAML)
+    lightdash upload --force   # push charts/dashboards from transform/lightdash/
+    lightdash validate --exclude stg_workforce_submission    # gate: broken refs, drift
+    cd ..
+
+Note: `stg_workforce_submission` is an orphaned staging model (pre-dates the Lightdash
+work, no schema.yml entry, unreferenced) that fails Lightdash's compile if not excluded;
+it isn't part of the analytics layer.
+
+Existing stacks (volume predates Lightdash): create the app DB once with
+`docker exec jmea_postgres bash /docker-entrypoint-initdb.d/04_lightdash_db.sh`.
+
 ## Deploy (GCP, per ADR-0003)
 
     cd infra/terraform
