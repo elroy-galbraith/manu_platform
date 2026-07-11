@@ -1,0 +1,10 @@
+version: 2
+seeds:
+  - name: expected_scores
+    config:
+      column_types:
+        member_id: text
+        score_certifications: integer
+        score_capacity_headroom: integer
+        readiness_score: integer
+        readiness_band: text

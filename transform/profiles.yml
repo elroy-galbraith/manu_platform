@@ -1,0 +1,12 @@
+jmea:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('JMEA_DB_HOST', 'localhost') }}"
+      port: "{{ env_var('JMEA_DB_PORT', '5433') | as_number }}"
+      user: transform
+      password: "{{ env_var('TRANSFORM_PASSWORD', 'transform_dev') }}"
+      dbname: "{{ env_var('JMEA_DB_NAME', 'jmea') }}"
+      schema: staging
+      threads: 4
