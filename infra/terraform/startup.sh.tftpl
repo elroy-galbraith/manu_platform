@@ -15,5 +15,5 @@ echo "${backup_bucket}" > /etc/jmea_backup_bucket
 # Deploy step (operator, documented in README): clone/rsync the repo to /opt/jmea,
 # create /opt/jmea/.env with real passwords, then:
 #   cd /opt/jmea && docker compose -f infra/compose/docker-compose.yml up -d --wait
-echo "15 6 * * * root /opt/jmea/infra/backup/pg_dump_to_gcs.sh >> /var/log/jmea_backup.log 2>&1" \
+echo "15 6 * * * root bash /opt/jmea/infra/backup/pg_dump_to_gcs.sh >> /var/log/jmea_backup.log 2>&1" \
   > /etc/cron.d/jmea-backup
