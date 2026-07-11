@@ -44,10 +44,10 @@ select
 from {{ ref('stg_member') }} m
 left join products p on p.member_id = m.member_id
 left join certs c on c.member_id = m.member_id
-inner join {{ ref('stg_capacity_submission') }} cap
+left join {{ ref('stg_capacity_submission') }} cap
     on cap.member_id = m.member_id and cap.quarter = '{{ var("current_quarter") }}'
-inner join {{ ref('int_spare_capacity') }} sc
+left join {{ ref('int_spare_capacity') }} sc
     on sc.member_id = m.member_id and sc.quarter = '{{ var("current_quarter") }}'
-inner join {{ ref('stg_energy_submission') }} e
+left join {{ ref('stg_energy_submission') }} e
     on e.member_id = m.member_id and e.quarter = '{{ var("current_quarter") }}'
-inner join {{ ref('int_readiness_scores') }} r on r.member_id = m.member_id
+left join {{ ref('int_readiness_scores') }} r on r.member_id = m.member_id
