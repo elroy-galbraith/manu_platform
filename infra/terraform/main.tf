@@ -22,6 +22,7 @@ resource "google_storage_bucket" "backups" {
   name                        = "${var.project_id}-jmea-backups"
   location                    = var.region
   uniform_bucket_level_access = true
+  public_access_prevention    = "enforced"
 
   lifecycle_rule {
     condition {

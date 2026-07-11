@@ -1,6 +1,8 @@
 #!/bin/bash
 # Nightly logical backup of the containerized Postgres to GCS (ADR-0003).
 set -euo pipefail
+# cron runs with a minimal PATH; make docker/gcloud resolvable
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 BUCKET="$(cat /etc/jmea_backup_bucket)"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"

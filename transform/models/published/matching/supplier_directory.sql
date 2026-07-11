@@ -24,8 +24,8 @@ select
     m.lead_time_days,
     p.products,
     c.certifications,
-    cap.capacity,
-    cap.unit as capacity_unit,
+    sc.capacity,
+    sc.unit as capacity_unit,
     sc.spare_capacity,
     r.readiness_score,
     r.readiness_band
@@ -33,8 +33,6 @@ from {{ ref('stg_member') }} m
 inner join tier3 t on t.member_id = m.member_id
 left join products p on p.member_id = m.member_id
 left join certs c on c.member_id = m.member_id
-left join {{ ref('stg_capacity_submission') }} cap
-    on cap.member_id = m.member_id and cap.quarter = '{{ var("current_quarter") }}'
 left join {{ ref('int_spare_capacity') }} sc
     on sc.member_id = m.member_id and sc.quarter = '{{ var("current_quarter") }}'
 left join {{ ref('int_readiness_scores') }} r on r.member_id = m.member_id

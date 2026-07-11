@@ -27,8 +27,8 @@ scored as (
         least(100,
               20 + coalesce(c.n_certs, 0) * 20
                  + coalesce(c.has_food_safety_cert, 0) * 10) as score_certifications,
-        least(100,
-              round(((100 - cap.utilization_pct) * 1.8 + 20)::numeric)::int)
+        greatest(0, least(100,
+              round(((100 - cap.utilization_pct) * 1.8 + 20)::numeric)::int))
             as score_capacity_headroom,
         a.score_packaging,
         a.score_logistics,

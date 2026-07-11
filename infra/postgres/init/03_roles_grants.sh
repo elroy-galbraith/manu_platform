@@ -2,10 +2,10 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
-    CREATE ROLE app_portal LOGIN PASSWORD '${APP_PORTAL_PASSWORD}';
-    CREATE ROLE transform LOGIN PASSWORD '${TRANSFORM_PASSWORD}';
-    CREATE ROLE svc_analytics LOGIN PASSWORD '${SVC_ANALYTICS_PASSWORD}';
-    CREATE ROLE svc_matching LOGIN PASSWORD '${SVC_MATCHING_PASSWORD}';
+    CREATE ROLE app_portal LOGIN PASSWORD '${APP_PORTAL_PASSWORD//\'/\'\'}';
+    CREATE ROLE transform LOGIN PASSWORD '${TRANSFORM_PASSWORD//\'/\'\'}';
+    CREATE ROLE svc_analytics LOGIN PASSWORD '${SVC_ANALYTICS_PASSWORD//\'/\'\'}';
+    CREATE ROLE svc_matching LOGIN PASSWORD '${SVC_MATCHING_PASSWORD//\'/\'\'}';
 
     -- portal: write-only into raw
     GRANT USAGE ON SCHEMA raw TO app_portal;

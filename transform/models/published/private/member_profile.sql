@@ -24,9 +24,9 @@ select
     m.export_markets,
     p.products,
     c.certifications,
-    cap.capacity,
-    cap.unit as capacity_unit,
-    cap.utilization_pct,
+    sc.capacity,
+    sc.unit as capacity_unit,
+    sc.utilization_pct,
     sc.spare_capacity,
     e.monthly_kwh,
     e.generator_share_pct,
@@ -44,8 +44,6 @@ select
 from {{ ref('stg_member') }} m
 left join products p on p.member_id = m.member_id
 left join certs c on c.member_id = m.member_id
-left join {{ ref('stg_capacity_submission') }} cap
-    on cap.member_id = m.member_id and cap.quarter = '{{ var("current_quarter") }}'
 left join {{ ref('int_spare_capacity') }} sc
     on sc.member_id = m.member_id and sc.quarter = '{{ var("current_quarter") }}'
 left join {{ ref('stg_energy_submission') }} e
